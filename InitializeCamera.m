@@ -20,7 +20,7 @@ else
     disp([datestr(datetime('now')) ':camera detected']);
 end
 
-pvcamset(h_cam,pvcam_setpar{8},1);%10Mhz readout mode Readout Port 2 is 1, Port 1 is 0
+pvcamset(h_cam,pvcam_setpar{7},1);%10Mhz readout mode Readout Port 2 is 1, Port 1 is 0
 pvcam_par.serdim   = pvcamgetvalue(h_cam, pvcam_getpar{4});%CCDpixelser
 pvcam_par.pardim   = pvcamgetvalue(h_cam, pvcam_getpar{3});%CCDpixelpar
 pvcam_par.gain     = pvcamgetvalue(h_cam, pvcam_getpar{7});%CCDgainindex
@@ -28,7 +28,7 @@ pvcam_par.speedns  = pvcamgetvalue(h_cam, pvcam_getpar{8});%CCDpixtime
 pvcam_par.timeunit = pvcamgetvalue(h_cam, pvcam_getpar{9});%CameraResolution
 pvcam_par.temp     = pvcamgetvalue(h_cam, pvcam_getpar{6});%temperature
 pvcam_par.readout  = pvcamgetvalue(h_cam, pvcam_getpar{10});%readout rate 50 means 20MHz, 100 mens 10MHz
-if pvcam_par.timeunit == 'One Millisecond Exposure Resolution'
+if pvcam_par.timeunit == 'One Millisecond'
     disp([datestr(datetime('now')) ':exposure in milliseconds']);
 else
      disp([datestr(datetime('now')) ':NOT in milliseconds!']);
