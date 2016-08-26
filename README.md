@@ -7,3 +7,5 @@ exchange boolean to rs_bool for Visual Studio complier.
 
 Sample Compile code in MATLAB terminal:
 mex -largeArrayDims '-I:\Dropbox\Workspace\Matlab\Current\MATLAB_mex\MATLAB_mex' pvcam64.lib pvcamopen.c pvcamutil.c
+
+tested on CoolSNAP HQ, PRIME M and Retiga LUMO
