@@ -20,7 +20,8 @@ else
     disp([datestr(datetime('now')) ':camera detected']);
 end
 
-pvcamset(h_cam,pvcam_setpar{7},1);%10Mhz readout mode Readout Port 2 is 1, Port 1 is 0
+%pvcamsetvalue(h_cam, 'PARAM_SPDTAB_INDEX', 0); % set camera to max readout speed at 0, better biniration at 1
+pvcamsetvalue(h_cam, 'PARAM_GAIN_INDEX', 2); % set camera to max gain 
 pvcam_par.serdim   = pvcamgetvalue(h_cam, pvcam_getpar{4});%CCDpixelser
 pvcam_par.pardim   = pvcamgetvalue(h_cam, pvcam_getpar{3});%CCDpixelpar
 pvcam_par.gain     = pvcamgetvalue(h_cam, pvcam_getpar{7});%CCDgainindex
