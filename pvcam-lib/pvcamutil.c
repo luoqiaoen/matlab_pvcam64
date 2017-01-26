@@ -572,6 +572,10 @@ rs_bool pvcam_param_id(int16 hcam, const char *param_name, uns32 *param_id) {
 	else if (strcmp(param_name, "PARAM_CIRC_BUFFER") == 0) {
 		*param_id = PARAM_CIRC_BUFFER;
 	}
+	
+	else if (strcmp(param_name, "PP_FEATURE_DENOISING") == 0) {
+	 *param_id = PP_FEATURE_DENOISING;
+        }
 
 	// generate error message if parameter not found
 	else {
