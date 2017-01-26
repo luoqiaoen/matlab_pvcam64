@@ -6,12 +6,13 @@ Adapted a lot from the original 32bit version from matPVCAM source, Year 2003 ht
 deleted pv_icl(not needed for my project), and replaced all 32bit library with 64bit library from Photometrics (Currently PVCAM 3.1).
 exchange boolean to rs_bool for Visual Studio complier.
 
-Sample Compile code in MATLAB terminal, under the directory:
+Compile in MATLAB terminal, under the directory:
+
 mex pvcam64.lib pvcamopen.c pvcamutil.c
 
-tested on CoolSNAP HQ, PRIME M and Retiga LUMO
+tested on CoolSNAP HQ, Retiga LUMO and PRIME M
 
 For PRIME and PVCAM 3.1, meta is enabled, current files can be directly used for PRIME, adaptation may be needed for older cameras.
 
-As my application does not need advanced features, the codes written are quite bare-boned, 
+As my application does not really need advanced features, the codes written are quite bare-boned, 
 but should have provided sufficient examples to help users make full use of the current PVCAM SDK.
