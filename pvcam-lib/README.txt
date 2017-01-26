@@ -1,10 +1,3 @@
-Originally from matPVCAM source.
-deleted pv_icl(not needed for my project), and replaced all 32bit library with 64bit PVCam 3.1 library from Photometrics.
-exchange boolean to rs_bool for Visual Studio complier.
-
-Sample Compile code in MATLAB terminal:
-mex <directory> pvcam64.lib pvcamopen.c pvcamutil.c
-
 PRIME sCMOS features:
 1. No need to change readout rate
 2. No need to change gain
