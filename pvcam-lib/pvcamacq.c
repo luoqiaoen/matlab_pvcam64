@@ -167,6 +167,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 	// check for open camera
 	// acquire image sequence
 	// assign empty matrix if failure
+	
 	if (pl_cam_check(hcam)) {
 		plhs[0] = pvcam_acquire(hcam, nimage, nregion, region, exptime, expmode);
 	}
@@ -191,15 +192,14 @@ mxArray *pvcam_acquire(int16 hcam, uns16 nimage, uns16 nregion, rgn_type *region
 	uns16	*data_ptr;		// output data
 	uns32	bytes_read;		// bytes read by camera
 	uns32	image_size;		// image size in bytes
-
+   
+	long64   timestamp;
+	long64   timestamp2;       // timestamp?
+	long64   exposuretime;
+	md_frame *pFrame; // frame struct
+	
 	// create empty mxArray for error output
 	empty_struct = mxCreateNumericMatrix(0, 0, mxUINT16_CLASS, mxREAL);
-
-	// initialize exposure sequence
-	if (!pl_exp_init_seq()) {
-		pvcam_error(hcam, "Cannot initialize exposure sequence");
-		return(empty_struct);
-	}
 	
 	// load exposure sequence
 	// obtain number of bytes needed to store images
@@ -230,10 +230,37 @@ mxArray *pvcam_acquire(int16 hcam, uns16 nimage, uns16 nregion, rgn_type *region
 		}
 	}
 	
-	// uninitialize exposure sequence
+/* 	// uninitialize exposure sequence
 	if (!pl_exp_uninit_seq()) {
 		pvcam_error(hcam, "Cannot uninitialize exposure sequence");
 		mxDestroyArray(data_struct);
+		return(empty_struct);
+	} */
+	// uninitialize exposure sequence
+	if (!pl_exp_finish_seq(hcam, data_ptr, 0)) {
+		pvcam_error(hcam, "Cannot uninitialize exposure sequence");
+		mxDestroyArray(data_struct);
+		return(empty_struct);
+	}
+	if(!pl_md_create_frame_struct(&pFrame, data_ptr, image_size)){
+		pvcam_error(hcam, "meta not allocated properly");
+		return(empty_struct);
+	}
+	if(!pl_md_frame_decode(pFrame, data_ptr, image_size)){
+		pvcam_error(hcam, "meta not decomposed properly");
+		return(empty_struct);
+	}
+	timestamp = pFrame->header->timestampBOF*pFrame->header->roiTimestampResNs;
+	timestamp2 = pFrame->header->timestampEOF*pFrame->header->roiTimestampResNs;
+	exposuretime = pFrame->header->exposureTime*pFrame->header->exposureTimeResNs;
+	//printf("timestamp calculated");
+	//data_ptr[0] = timestamp;
+	//printf("timestamp appended");
+	printf("BOF: %I64d\n",timestamp);
+	printf("EOF: %I64d\n",timestamp2);
+	printf("RES: %I64d\n",exposuretime);
+	if(!pl_md_release_frame_struct(pFrame)){
+		pvcam_error(hcam, "meta not released properly");
 		return(empty_struct);
 	}
 	

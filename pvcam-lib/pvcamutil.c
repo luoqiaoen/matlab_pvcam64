@@ -1,6 +1,7 @@
 /* Utilities for PVCAM MEX files */
 /* SCM 9/2/02 */
 
+/* 11/18/16 QL according to PVCAM 3.1 */
 
 // inclusions
 #include "pvcamutil.h"
@@ -124,9 +125,6 @@ char *pvcam_access_string(int16 hcam, uns16 access_id) {
 
 	// return access string that matches ID
 	switch (access_id) {
-	case ACC_ERROR:
-		strcpy(access_string, "access error");
-		break;
 	case ACC_EXIST_CHECK_ONLY:
 		strcpy(access_string, "check only");
 		break;
@@ -295,173 +293,52 @@ rs_bool pvcam_param_id(int16 hcam, const char *param_name, uns32 *param_id) {
 	else if (strcmp(param_name, "PARAM_DD_TIMEOUT") == 0) {
 		*param_id = PARAM_DD_TIMEOUT;
 	}
-
-	// class 2 (CCD skip parameters)
-	else if (strcmp(param_name, "PARAM_MIN_BLOCK") == 0) {
-		*param_id = PARAM_MIN_BLOCK;
-	}
-	else if (strcmp(param_name, "PARAM_NUM_MIN_BLOCK") == 0) {
-		*param_id = PARAM_NUM_MIN_BLOCK;
-	}
-	else if (strcmp(param_name, "PARAM_SKIP_AT_ONCE_BLK") == 0) {
-		*param_id = PARAM_SKIP_AT_ONCE_BLK;
-	}
-	else if (strcmp(param_name, "PARAM_NUM_OF_STRIPS_PER_CLR") == 0) {
-		*param_id = PARAM_NUM_OF_STRIPS_PER_CLR;
-	}
-	else if (strcmp(param_name, "PARAM_CONT_CLEARS") == 0) {
-		*param_id = PARAM_CONT_CLEARS;
-	}
-
-	// class 2 (general camera properties)
-	else if (strcmp(param_name, "PARAM_ANTI_BLOOMING") == 0) {
-		*param_id = PARAM_ANTI_BLOOMING;
-	}
-	else if (strcmp(param_name, "PARAM_LOGIC_OUTPUT") == 0) {
-		*param_id = PARAM_LOGIC_OUTPUT;
-	}
-	else if (strcmp(param_name, "PARAM_EDGE_TRIGGER") == 0) {
-		*param_id = PARAM_EDGE_TRIGGER;
-	}
-	else if (strcmp(param_name, "PARAM_INTENSIFIER_GAIN") == 0) {
-		*param_id = PARAM_INTENSIFIER_GAIN;
-	}
-	else if (strcmp(param_name, "PARAM_SHTR_GATE_MODE") == 0) {
-		*param_id = PARAM_SHTR_GATE_MODE;
-	}
-	else if (strcmp(param_name, "PARAM_ADC_OFFSET") == 0) {
-		*param_id = PARAM_ADC_OFFSET;
-	}
-	else if (strcmp(param_name, "PARAM_CHIP_NAME") == 0) {
-		*param_id = PARAM_CHIP_NAME;
-	}
-	else if (strcmp(param_name, "PARAM_COOLING_MODE") == 0) {
-		*param_id = PARAM_COOLING_MODE;
-	}
-	else if (strcmp(param_name, "PARAM_PREAMP_DELAY") == 0) {
-		*param_id = PARAM_PREAMP_DELAY;
-	}
-	else if (strcmp(param_name, "PARAM_PREFLASH") == 0) {
-		*param_id = PARAM_PREFLASH;
-	}
-	else if (strcmp(param_name, "PARAM_COLOR_MODE") == 0) {
-		*param_id = PARAM_COLOR_MODE;
-	}
-	else if (strcmp(param_name, "PARAM_MPP_CAPABLE") == 0) {
-		*param_id = PARAM_MPP_CAPABLE;
-	}
-	else if (strcmp(param_name, "PARAM_PREAMP_OFF_CONTROL") == 0) {
-		*param_id = PARAM_PREAMP_OFF_CONTROL;
-	}
-	else if (strcmp(param_name, "PARAM_SERIAL_NUM") == 0) {
-		*param_id = PARAM_SERIAL_NUM;
-	}
-
-	// class 2 (CCD dimensions)
-	else if (strcmp(param_name, "PARAM_PREMASK") == 0) {
-		*param_id = PARAM_PREMASK;
-	}
-	else if (strcmp(param_name, "PARAM_PRESCAN") == 0) {
-		*param_id = PARAM_PRESCAN;
-	}
-	else if (strcmp(param_name, "PARAM_POSTMASK") == 0) {
-		*param_id = PARAM_POSTMASK;
-	}
-	else if (strcmp(param_name, "PARAM_POSTSCAN") == 0) {
-		*param_id = PARAM_POSTSCAN;
-	}
-	else if (strcmp(param_name, "PARAM_PIX_PAR_DIST") == 0) {
-		*param_id = PARAM_PIX_PAR_DIST;
-	}
-	else if (strcmp(param_name, "PARAM_PIX_PAR_SIZE") == 0) {
-		*param_id = PARAM_PIX_PAR_SIZE;
-	}
-	else if (strcmp(param_name, "PARAM_PIX_SER_DIST") == 0) {
-		*param_id = PARAM_PIX_SER_DIST;
-	}
-	else if (strcmp(param_name, "PARAM_PIX_SER_SIZE") == 0) {
-		*param_id = PARAM_PIX_SER_SIZE;
-	}
-	else if (strcmp(param_name, "PARAM_SUMMING_WELL") == 0) {
-		*param_id = PARAM_SUMMING_WELL;
-	}
-	else if (strcmp(param_name, "PARAM_FWELL_CAPACITY") == 0) {
-		*param_id = PARAM_FWELL_CAPACITY;
-	}
-	else if (strcmp(param_name, "PARAM_PAR_SIZE") == 0) {
-		*param_id = PARAM_PAR_SIZE;
-	}
-	else if (strcmp(param_name, "PARAM_SER_SIZE") == 0) {
-		*param_id = PARAM_SER_SIZE;
-	}
-	else if (strcmp(param_name, "PARAM_ACCUM_CAPABLE") == 0) {
-		*param_id = PARAM_ACCUM_CAPABLE;
-	}
-	else if (strcmp(param_name, "PARAM_FLASH_DWNLD_CAPABLE") == 0) {
-		*param_id = PARAM_FLASH_DWNLD_CAPABLE;
-	}
-
-	// class 2 (general camera properties)
-	else if (strcmp(param_name, "PARAM_CONTROLLER_ALIVE") == 0) {
-		*param_id = PARAM_CONTROLLER_ALIVE;
-	}
-	else if (strcmp(param_name, "PARAM_READOUT_TIME") == 0) {
-		*param_id = PARAM_READOUT_TIME;
-	}
+	
+	// class 2 (sensor clearing)
 	else if (strcmp(param_name, "PARAM_CLEAR_CYCLES") == 0) {
 		*param_id = PARAM_CLEAR_CYCLES;
 	}
 	else if (strcmp(param_name, "PARAM_CLEAR_MODE") == 0) {
 		*param_id = PARAM_CLEAR_MODE;
 	}
-	else if (strcmp(param_name, "PARAM_FRAME_CAPABLE") == 0) {
-		*param_id = PARAM_FRAME_CAPABLE;
-	}
-	else if (strcmp(param_name, "PARAM_PMODE") == 0) {
-		*param_id = PARAM_PMODE;
-	}
-	else if (strcmp(param_name, "PARAM_CCS_STATUS") == 0) {
-		*param_id = PARAM_CCS_STATUS;
-	}
+	
+	// class 2 (temperature control)
+	else if (strcmp(param_name, "PARAM_COOLING_MODE") == 0) {
+		*param_id = PARAM_COOLING_MODE;
+	}	
 	else if (strcmp(param_name, "PARAM_TEMP") == 0) {
 		*param_id = PARAM_TEMP;
 	}
 	else if (strcmp(param_name, "PARAM_TEMP_SETPOINT") == 0) {
 		*param_id = PARAM_TEMP_SETPOINT;
 	}
-	else if (strcmp(param_name, "PARAM_CAM_FW_VERSION") == 0) {
-		*param_id = PARAM_CAM_FW_VERSION;
+	else if (strcmp(param_name, "PARAM_FAN_SPEED_SETPOINT") == 0) {
+		*param_id = PARAM_FAN_SPEED_SETPOINT;
 	}
-	else if (strcmp(param_name, "PARAM_HEAD_SER_NUM_ALPHA") == 0) {
-		*param_id = PARAM_HEAD_SER_NUM_ALPHA;
-	}
-	else if (strcmp(param_name, "PARAM_PCI_FW_VERSION") == 0) {
-		*param_id = PARAM_PCI_FW_VERSION;
-	}
-	else if (strcmp(param_name, "PARAM_CAM_FW_FULL_VERSION") == 0) {
-		*param_id = PARAM_CAM_FW_FULL_VERSION;
-	}
-	else if (strcmp(param_name, "PARAM_EXPOSURE_MODE") == 0) {
-		*param_id = PARAM_EXPOSURE_MODE;
-	}
-
-	// class 2 (speed table)
-	else if (strcmp(param_name, "PARAM_BIT_DEPTH") == 0) {
-		*param_id = PARAM_BIT_DEPTH;
-	}
+	
+	// class 2 (gain)
 	else if (strcmp(param_name, "PARAM_GAIN_INDEX") == 0) {
 		*param_id = PARAM_GAIN_INDEX;
 	}
-	else if (strcmp(param_name, "PARAM_SPDTAB_INDEX") == 0) {
-		*param_id = PARAM_SPDTAB_INDEX;
+	else if (strcmp(param_name, "PARAM_GAIN_NAME") == 0) {
+		*param_id = PARAM_GAIN_NAME;
 	}
-	else if (strcmp(param_name, "PARAM_READOUT_PORT") == 0) {
-		*param_id = PARAM_READOUT_PORT;
+	else if (strcmp(param_name, "PARAM_GAIN_MULT_ENABLE") == 0) {
+		*param_id = PARAM_GAIN_MULT_ENABLE;
 	}
-	else if (strcmp(param_name, "PARAM_PIX_TIME") == 0) {
-		*param_id = PARAM_PIX_TIME;
+	else if (strcmp(param_name, "PARAM_GAIN_MULT_FACTOR") == 0) {
+		*param_id = PARAM_GAIN_MULT_FACTOR;
 	}
-
+	else if (strcmp(param_name, "PARAM_PREAMP_DELAY") == 0) {
+		*param_id = PARAM_PREAMP_DELAY;
+	}
+	else if (strcmp(param_name, "PARAM_PREAMP_OFF_CONTROL") == 0) {
+		*param_id = PARAM_PREAMP_OFF_CONTROL;
+	}
+	else if (strcmp(param_name, "PARAM_ACTUAL_GAIN") == 0) {
+		*param_id = PARAM_ACTUAL_GAIN;
+	}
+	
 	// class 2 (shutter)
 	else if (strcmp(param_name, "PARAM_SHTR_CLOSE_DELAY") == 0) {
 		*param_id = PARAM_SHTR_CLOSE_DELAY;
@@ -475,10 +352,18 @@ rs_bool pvcam_param_id(int16 hcam, const char *param_name, uns32 *param_id) {
 	else if (strcmp(param_name, "PARAM_SHTR_STATUS") == 0) {
 		*param_id = PARAM_SHTR_STATUS;
 	}
-	else if (strcmp(param_name, "PARAM_SHTR_CLOSE_DELAY_UNIT") == 0) {
-		*param_id = PARAM_SHTR_CLOSE_DELAY_UNIT;
+	
+	// class 2 (Capabilities)
+	else if (strcmp(param_name, "PARAM_ACCUM_CAPABLE") == 0) {
+		*param_id = PARAM_ACCUM_CAPABLE;
 	}
-
+	else if (strcmp(param_name, "PARAM_FRAME_CAPABLE") == 0) {
+		*param_id = PARAM_FRAME_CAPABLE;
+	}
+	else if (strcmp(param_name, "PARAM_MPP_CAPABLE") == 0) {
+		*param_id = PARAM_MPP_CAPABLE;
+	}	
+	
 	// class 2 (I/O)
 	else if (strcmp(param_name, "PARAM_IO_ADDR") == 0) {
 		*param_id = PARAM_IO_ADDR;
@@ -495,46 +380,199 @@ rs_bool pvcam_param_id(int16 hcam, const char *param_name, uns32 *param_id) {
 	else if (strcmp(param_name, "PARAM_IO_BITDEPTH") == 0) {
 		*param_id = PARAM_IO_BITDEPTH;
 	}
-
-	// class 2 (gain multiplier)
-	else if (strcmp(param_name, "PARAM_GAIN_MULT_FACTOR") == 0) {
-		*param_id = PARAM_GAIN_MULT_FACTOR;
+	// class 2 (Post-Processing)
+	else if (strcmp(param_name, "PARAM_PP_INDEX") == 0) {
+		*param_id = PARAM_PP_INDEX;
 	}
-	else if (strcmp(param_name, "PARAM_GAIN_MULT_ENABLE") == 0) {
-		*param_id = PARAM_GAIN_MULT_ENABLE;
+	else if (strcmp(param_name, "PARAM_PP_FEAT_NAME") == 0) {
+		*param_id = PARAM_PP_FEAT_NAME;
 	}
-
+	else if (strcmp(param_name, "PARAM_PP_PARAM_INDEX") == 0) {
+		*param_id = PARAM_PP_PARAM_INDEX;
+	}
+	else if (strcmp(param_name, "PARAM_PP_PARAM_NAME") == 0) {
+		*param_id = PARAM_PP_PARAM_NAME;
+	}
+	else if (strcmp(param_name, "PARAM_PP_PARAM") == 0) {
+		*param_id = PARAM_PP_PARAM;
+	}	
+	else if (strcmp(param_name, "PARAM_PP_FEAT_ID") == 0) {
+		*param_id = PARAM_PP_FEAT_ID;
+	}
+	else if (strcmp(param_name, "PARAM_PP_PARAM_ID") == 0) {
+		*param_id = PARAM_PP_PARAM_ID;
+	}	
+	
+	
+	// class 2 (sensor physical attributes)
+	else if (strcmp(param_name, "PARAM_COLOR_MODE") == 0) {
+		*param_id = PARAM_COLOR_MODE;
+	}	
+	else if (strcmp(param_name, "PARAM_FWELL_CAPACITY") == 0) {
+		*param_id = PARAM_FWELL_CAPACITY;
+	}
+	else if (strcmp(param_name, "PARAM_PAR_SIZE") == 0) {
+		*param_id = PARAM_PAR_SIZE;
+	}
+	else if (strcmp(param_name, "PARAM_PIX_PAR_DIST") == 0) {
+		*param_id = PARAM_PIX_PAR_DIST;
+	}
+	else if (strcmp(param_name, "PARAM_PIX_PAR_SIZE") == 0) {
+		*param_id = PARAM_PIX_PAR_SIZE;
+	}
+	else if (strcmp(param_name, "PARAM_PIX_SER_DIST") == 0) {
+		*param_id = PARAM_PIX_SER_DIST;
+	}
+	else if (strcmp(param_name, "PARAM_PIX_SER_SIZE") == 0) {
+		*param_id = PARAM_PIX_SER_SIZE;
+	}
+	else if (strcmp(param_name, "PARAM_POSTMASK") == 0) {
+		*param_id = PARAM_POSTMASK;
+	}
+	else if (strcmp(param_name, "PARAM_POSTSCAN") == 0) {
+		*param_id = PARAM_POSTSCAN;
+	}
+	else if (strcmp(param_name, "PARAM_PIX_TIME") == 0) {
+		*param_id = PARAM_PIX_TIME;
+	}
+	else if (strcmp(param_name, "PARAM_PREMASK") == 0) {
+		*param_id = PARAM_PREMASK;
+	}
+	else if (strcmp(param_name, "PARAM_PRESCAN") == 0) {
+		*param_id = PARAM_PRESCAN;
+	}
+	else if (strcmp(param_name, "PARAM_SER_SIZE") == 0) {
+		*param_id = PARAM_SER_SIZE;
+	}
+    else if (strcmp(param_name, "PARAM_SUMMING_WELL") == 0) {
+		*param_id = PARAM_SUMMING_WELL;
+	}
+	
+	// class 2 (sensor readout)
+    else if (strcmp(param_name, "PARAM_PMODE") == 0) {
+		*param_id = PARAM_PMODE;
+	}
+	else if (strcmp(param_name, "PARAM_READOUT_PORT") == 0) {
+		*param_id = PARAM_READOUT_PORT;
+	}
+	else if (strcmp(param_name, "PARAM_READOUT_TIME") == 0) {
+		*param_id = PARAM_READOUT_TIME;
+	}
+	else if (strcmp(param_name, "PARAM_EXPOSURE_MODE") == 0) {
+		*param_id = PARAM_EXPOSURE_MODE;
+	}
+	else if (strcmp(param_name, "PARAM_EXPOSE_OUT_MODE") == 0) {
+		*param_id = PARAM_EXPOSE_OUT_MODE;
+	}
+	
+	// class 2 (ADC attributes)
+	else if (strcmp(param_name, "PARAM_ADC_OFFSET") == 0) {
+		*param_id = PARAM_ADC_OFFSET;
+	}
+	else if (strcmp(param_name, "PARAM_BIT_DEPTH") == 0) {
+		*param_id = PARAM_BIT_DEPTH;
+	}
+	else if (strcmp(param_name, "PARAM_SPDTAB_INDEX") == 0) {
+		*param_id = PARAM_SPDTAB_INDEX;
+	}
+	
+	// class 2 (S.M.A.R.T Streaming)
+	else if (strcmp(param_name, "PARAM_SMART_STREAM_MODE_ENABLED") == 0) {
+		*param_id = PARAM_SMART_STREAM_MODE_ENABLED;
+	}
+	else if (strcmp(param_name, "PARAM_SMART_STREAM_MODE") == 0) {
+		*param_id = PARAM_SMART_STREAM_MODE;
+	}
+	else if (strcmp(param_name, "PARAM_SMART_STREAM_EXP_PARAMS") == 0) {
+		*param_id = PARAM_SMART_STREAM_EXP_PARAMS;
+	}
+	
+	// class 2 (Others)
+	else if (strcmp(param_name, "PARAM_CAM_FW_VERSION") == 0) {
+		*param_id = PARAM_CAM_FW_VERSION;
+	}
+	else if (strcmp(param_name, "PARAM_CHIP_NAME") == 0) {
+		*param_id = PARAM_CHIP_NAME;
+	}
+    else if (strcmp(param_name, "PARAM_SYSTEM_NAME") == 0) {
+		*param_id = PARAM_SYSTEM_NAME;
+	}
+	else if (strcmp(param_name, "PARAM_VENDOR_NAME") == 0) {
+		*param_id = PARAM_VENDOR_NAME;
+	}
+	else if (strcmp(param_name, "PARAM_PRODUCT_NAME") == 0) {
+		*param_id = PARAM_PRODUCT_NAME;
+	}
+	else if (strcmp(param_name, "PARAM_CAMERA_PART_NUMBER") == 0) {
+		*param_id = PARAM_CAMERA_PART_NUMBER;
+	}
+	else if (strcmp(param_name, "PARAM_HEAD_SER_NUM_ALPHA") == 0) {
+		*param_id = PARAM_HEAD_SER_NUM_ALPHA;
+	}
+	else if (strcmp(param_name, "PARAM_PCI_FW_VERSION") == 0) {
+		*param_id = PARAM_PCI_FW_VERSION;
+	}
+	else if (strcmp(param_name, "PARAM_READ_NOISE") == 0) {
+		*param_id = PARAM_READ_NOISE;
+	}
+	
+	
 	// class 3 (acquisition)
-	else if (strcmp(param_name, "PARAM_EXP_TIME") == 0) {
-		*param_id = PARAM_EXP_TIME;
-	}
-	else if (strcmp(param_name, "PARAM_EXP_RES") == 0) {
-		*param_id = PARAM_EXP_RES;
-	}
-	else if (strcmp(param_name, "PARAM_EXP_MIN_TIME") == 0) {
-		*param_id = PARAM_EXP_MIN_TIME;
-	}
-	else if (strcmp(param_name, "PARAM_EXP_RES_INDEX") == 0) {
-		*param_id = PARAM_EXP_RES_INDEX;
-	}
-
-	// class 3 (buffer)
-	else if (strcmp(param_name, "PARAM_BOF_EOF_ENABLE") == 0) {
-		*param_id = PARAM_BOF_EOF_ENABLE;
+	else if (strcmp(param_name, "PARAM_BOF_EOF_CLR") == 0) {
+		*param_id = PARAM_BOF_EOF_CLR;
 	}
 	else if (strcmp(param_name, "PARAM_BOF_EOF_COUNT") == 0) {
 		*param_id = PARAM_BOF_EOF_COUNT;
 	}
-	else if (strcmp(param_name, "PARAM_BOF_EOF_CLR") == 0) {
-		*param_id = PARAM_BOF_EOF_CLR;
+	else if (strcmp(param_name, "PARAM_BOF_EOF_ENABLE") == 0) {
+		*param_id = PARAM_BOF_EOF_ENABLE;
 	}
+	else if (strcmp(param_name, "PARAM_ROI_COUNT") == 0) {
+		*param_id = PARAM_ROI_COUNT;
+	}
+	else if (strcmp(param_name, "PARAM_CENTROIDS_ENABLED") == 0) {
+		*param_id = PARAM_CENTROIDS_ENABLED;
+	}
+	else if (strcmp(param_name, "PARAM_CENTROIDS_COUNT") == 0) {
+		*param_id = PARAM_CENTROIDS_COUNT;
+	}
+	else if (strcmp(param_name, "PARAM_CENTROIDS_RADIUS") == 0) {
+		*param_id = PARAM_CENTROIDS_RADIUS;
+	}
+	else if (strcmp(param_name, "PARAM_TRIGTAB_SIGNAL") == 0) {
+		*param_id = PARAM_TRIGTAB_SIGNAL;
+	}
+	else if (strcmp(param_name, "PARAM_LAST_MUXED_SIGNAL") == 0) {
+		*param_id = PARAM_LAST_MUXED_SIGNAL;
+	}
+	else if (strcmp(param_name, "PARAM_EXP_RES") == 0) {
+		*param_id = PARAM_EXP_RES;
+	}
+	else if (strcmp(param_name, "PARAM_EXP_RES_INDEX") == 0) {
+		*param_id = PARAM_EXP_RES_INDEX;
+	}
+	else if (strcmp(param_name, "PARAM_EXP_TIME") == 0) {
+		*param_id = PARAM_EXP_TIME;
+	}
+	else if (strcmp(param_name, "PARAM_EXPOSURE_TIME") == 0) {
+		*param_id = PARAM_EXPOSURE_TIME;
+	}
+	else if (strcmp(param_name, "PARAM_METADATA_ENABLED") == 0) {
+		*param_id = PARAM_METADATA_ENABLED;
+	}
+	else if (strcmp(param_name, "PARAM_BINNING_SER") == 0) {
+		*param_id = PARAM_BINNING_SER;
+	}
+	else if (strcmp(param_name, "PARAM_BINNING_PAR") == 0) {
+		*param_id = PARAM_BINNING_PAR;
+	}
+	
+	
+	// Misc
 	else if (strcmp(param_name, "PARAM_CIRC_BUFFER") == 0) {
 		*param_id = PARAM_CIRC_BUFFER;
 	}
-	else if (strcmp(param_name, "PARAM_HW_AUTOSTOP") == 0) {
-		*param_id = PARAM_HW_AUTOSTOP;
-	}
-	
+
 	// generate error message if parameter not found
 	else {
 		err_msg = (char *) mxCalloc(strlen(param_name) + ERROR_MSG, sizeof(char));

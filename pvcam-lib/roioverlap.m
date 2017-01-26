@@ -138,3 +138,6 @@ while (~isempty(max_index))
     max_index = find(new_coord > max_val);
 end
 return
+
+    
+

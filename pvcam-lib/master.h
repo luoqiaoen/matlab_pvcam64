@@ -1,11 +1,14 @@
-/*****************************************************************************/
-/*        Copyright (C) Roper Scientific, Inc. 2007 All rights reserved.     */
-/*****************************************************************************/
+/******************************************************************************/
+/* Copyright (C) Roper Scientific, Inc. All rights reserved.                  */
+/******************************************************************************/
+
 #ifndef _MASTER_H
 #define _MASTER_H
 
-/* This allows us to insert the proper compiler flags, in pvcam.h for example,
-   to cope properly with C++ definitions. */
+/*
+This allows us to insert the proper compiler flags, in pvcam.h for example,
+to cope properly with C++ definitions.
+*/
 #if defined(__cplusplus)
   /* BORLAND C++ and GCC */
   #define PV_C_PLUS_PLUS
@@ -14,70 +17,116 @@
   #define PV_C_PLUS_PLUS
 #endif
 
-#if defined(_MSC_VER)
-  /* MICROSOFT C++ VS 2005 wants to use safe string functions.
-     We have to turn this off for now. */
-  #pragma message("Disabling String Safe Warnings")
-  #pragma warning(disable : 4996)
-#endif
+/******************************************************************************/
+/* Platform-specific defined like calling conventions, etc.                   */
+/******************************************************************************/
 
-/**************************** Calling Conventions ****************************/
 #if defined(_WIN32) || defined(_WIN64)
   #define PV_DECL __stdcall
+  #define DEPRECATED __declspec(deprecated)
 #elif defined(__linux__)
   #define PV_DECL
+  #define DEPRECATED __attribute__((deprecated))
 #elif defined(__APPLE__)
   #error TODO: Declare PV_DECL calling convention
+  #error TODO: Declare DEPRECATED definition
 #endif
 
-#define PV_PTR_DECL  *
+/******************************************************************************/
+/* PVCAM types                                                                */
+/******************************************************************************/
 
-/******************************** PVCAM Types ********************************/
-enum { PV_FAIL = 0, PV_OK };
+/** General error codes usually returned from functions as rs_bool value. */
+enum
+{
+    PV_FAIL = 0,
+    PV_OK
+};
 
-typedef unsigned short rs_bool, PV_PTR_DECL  rs_bool_ptr;
-typedef char                    PV_PTR_DECL  char_ptr;
-typedef signed char    int8,    PV_PTR_DECL  int8_ptr;
-typedef unsigned char  uns8,    PV_PTR_DECL  uns8_ptr;
-typedef short          int16,   PV_PTR_DECL  int16_ptr;
-typedef unsigned short uns16,   PV_PTR_DECL  uns16_ptr;
-typedef long           int32,   PV_PTR_DECL  int32_ptr;
-typedef unsigned long  uns32,   PV_PTR_DECL  uns32_ptr;
-typedef double         flt64,   PV_PTR_DECL  flt64_ptr;
-typedef void                    PV_PTR_DECL  void_ptr;
-typedef void_ptr                PV_PTR_DECL  void_ptr_ptr;
+typedef unsigned short rs_bool;
+typedef signed char    int8;
+typedef unsigned char  uns8;
+typedef short          int16;
+typedef unsigned short uns16;
+typedef int            int32;
+typedef unsigned int   uns32;
+typedef float          flt32;
+typedef double         flt64;
 
 #if defined(_MSC_VER)
-  typedef unsigned __int64   ulong64, PV_PTR_DECL ulong64_ptr;
-  typedef signed   __int64   long64,  PV_PTR_DECL long64_ptr;
+  typedef unsigned __int64   ulong64;
+  typedef signed   __int64   long64;
 #else
-  typedef unsigned long long ulong64, PV_PTR_DECL ulong64_ptr;
-  typedef signed   long long long64,  PV_PTR_DECL long64_ptr;
+  typedef unsigned long long ulong64;
+  typedef signed   long long long64;
 #endif
 
-typedef const rs_bool PV_PTR_DECL rs_bool_const_ptr;
-typedef const char    PV_PTR_DECL char_const_ptr;
-typedef const int8    PV_PTR_DECL int8_const_ptr;
-typedef const uns8    PV_PTR_DECL uns8_const_ptr;
-typedef const int16   PV_PTR_DECL int16_const_ptr;
-typedef const uns16   PV_PTR_DECL uns16_const_ptr;
-typedef const int32   PV_PTR_DECL int32_const_ptr;
-typedef const uns32   PV_PTR_DECL uns32_const_ptr;
-typedef const flt64   PV_PTR_DECL flt64_const_ptr;
+/**
+@defgroup grp_pm_deprecated Deprecated PVCAM symbols
+*/
 
-/****************************** PVCAM Constants ******************************/
+/**
+@defgroup grp_pm_deprecated_typedefs Deprecated PVCAM types
+@ingroup grp_pm_deprecated
+These types are included for compatibility reasons.
+@{
+*/
+
+#define PV_PTR_DECL     *
+
+typedef void*           void_ptr;
+typedef void**          void_ptr_ptr;
+
+typedef rs_bool*        rs_bool_ptr;
+typedef char*           char_ptr;
+typedef int8*           int8_ptr;
+typedef uns8*           uns8_ptr;
+typedef int16*          int16_ptr;
+typedef uns16*          uns16_ptr;
+typedef int32*          int32_ptr;
+typedef uns32*          uns32_ptr;
+typedef flt32*          flt32_ptr;
+typedef flt64*          flt64_ptr;
+typedef ulong64*        ulong64_ptr;
+typedef long64*         long64_ptr;
+
+typedef const rs_bool*  rs_bool_const_ptr;
+typedef const char*     char_const_ptr;
+typedef const int8*     int8_const_ptr;
+typedef const uns8*     uns8_const_ptr;
+typedef const int16*    int16_const_ptr;
+typedef const uns16*    uns16_const_ptr;
+typedef const int32*    int32_const_ptr;
+typedef const uns32*    uns32_const_ptr;
+typedef const flt32*    flt32_const_ptr;
+typedef const flt64*    flt64_const_ptr;
+typedef const ulong64*  ulong64_const_ptr;
+typedef const long64*   long64_const_ptr;
+
+/** @} */ /* grp_pm_deprecated_typedefs */
+
+/**
+@defgroup grp_pm_deprecated_params Deprecated PVCAM parameters
+@ingroup grp_pm_deprecated
+These parameters are included for compatibility reasons.
+*/
+
+/**
+@defgroup grp_pm_deprecated_functions Deprecated PVCAM functions
+@ingroup grp_pm_deprecated
+These functions are included for compatibility reasons.
+*/
+
+/******************************************************************************/
+/* PVCAM constants                                                            */
+/******************************************************************************/
+
 #ifndef FALSE
-  #define FALSE  PV_FAIL    /* FALSE == 0                                    */
+    #define FALSE  PV_FAIL  /* FALSE == 0 */
 #endif
 
 #ifndef TRUE
-  #define TRUE   PV_OK      /* TRUE  == 1                                    */
+    #define TRUE   PV_OK    /* TRUE == 1 */
 #endif
-
-#define CAM_NAME_LEN     32 /* Max length of a cam name (includes null term) */
-#define PARAM_NAME_LEN   32 /* Max length of a pp param                      */
-
-/************************ PVCAM-Specific Definitions *************************/
-#define MAX_CAM          16 /* Maximum number of cameras on this system.     */
 
 #endif /* _MASTER_H */
