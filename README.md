@@ -1,4 +1,4 @@
-# matpvcam64
+# matlab_pvcam64
 64bit PVCam 3.1 MATLAB library using mex
 
 Original 32bit version from matPVCAM source http://www.eng.utoledo.edu/~smolitor/download.htm.
