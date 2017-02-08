@@ -1,3 +1,10 @@
+Originally from matPVCAM source.
+deleted pv_icl(not needed for my project), and replaced all 32bit library with 64bit library from Photometrics.
+exchange boolean to rs_bool for Visual Studio complier.
+
+Sample Compile code in MATLAB terminal:
+mex <directory> pvcam64.lib pvcamopen.c pvcamutil.c
+
 PRIME sCMOS features:
 1. No need to change readout rate
 2. No need to change gain
@@ -11,4 +18,8 @@ PRIME sCMOS features:
 9. Fan speed control, high, medium, low and liquid cooling
 10. PrimeEnhance controls: no. of iterations in algo (3), 100*system gain, prime bias offset - 100, on or off but become fixed in the future
 11. PrimeLocate, enable and control number of ROIs per frame and size
-12. Time Stamps: output "metadata" including exposure ROI and timestamps, inserted in the frame buffer and transferred
+12. Time Stamps: output "metadata" including exposure ROI and timestamps, inserted in the frame buffer and transfeered, timestamps accuracy 10usec
+
+Post Processing Feautre:
+1. Use pvcamppshow to see a comprehensive list of post processing features available to this particular camera, remember the feature, function indices, and possible values.
+2. Use pvcamselect to change the value of a chosen feature, function.
