@@ -36,6 +36,11 @@ else
 end
 
 pvcamset(h_cam,pvcam_setpar{8},1);%Enable Metadata
+for i = 0:4
+    pvcamppselect(h_cam, i, 0, 0);
+    % make sure despeckle and denoising is off for speckle imaging
+end
+
 pvcam_par.serdim   = pvcamgetvalue(h_cam, pvcam_getpar{12});%CCDpixelser
 pvcam_par.pardim   = pvcamgetvalue(h_cam, pvcam_getpar{11});%CCDpixelpar
 pvcam_par.timeunit = pvcamgetvalue(h_cam, pvcam_getpar{18});%CameraResolution
